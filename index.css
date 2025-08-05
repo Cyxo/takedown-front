@@ -1,0 +1,131 @@
+@font-face {
+    font-family: "Batman";
+    src: url("static/batmfa.ttf");
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: darkmagenta;
+    color: white;
+}
+
+.warning {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup {
+    width: 450px;
+    height: 250px;
+    padding: 75px;
+    background-image: url("static/popup_bg.png");
+    background-size: 100% 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    font-family: "Delius", 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+    .title h1 {
+        margin: 0;
+    }
+
+    .button div {
+        padding: 17px 12px 23px 8px;
+        width: 130px;
+        color: white;
+        font-size: 1.3em;
+        opacity: 0.8;
+        background-image: url("static/button.png");
+        background-size: 100% 100%;
+        user-select: none;
+        cursor: pointer;
+    }
+
+    .button div:hover {
+        opacity: 1;
+    }
+}
+
+.main {
+    display: flex;
+    font-family: "Delius", 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.main.column {
+    width: 80%;
+    height: auto;
+    align-items: center;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.content {
+    width: 100%;
+    overflow-y: auto;
+    scrollbar-color: rgba(255, 255, 255, 0.5) rgba(0, 0, 0, 0);
+    scrollbar-width: thin;
+}
+
+.sidebar {
+    position: sticky;
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.titlebar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.title h1, .batman {
+    font-family: "Batman", Arial, Helvetica, sans-serif;
+}
+
+#lyrics p {
+    white-space: pre-wrap;
+    text-align: center;
+    margin: 0;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.sidebar .link {
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.sidebar .link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
