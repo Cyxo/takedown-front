@@ -102,13 +102,6 @@ body {
     flex-direction: row;
 }
 
-.content {
-    width: 100%;
-    overflow-y: auto;
-    scrollbar-color: rgba(255, 255, 255, 0.5) rgba(0, 0, 0, 0);
-    scrollbar-width: thin;
-}
-
 .sidebar {
     position: sticky;
     width: 20%;
@@ -133,6 +126,42 @@ body {
     font-family: "Batman", Arial, Helvetica, sans-serif;
 }
 
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.sidebar .link {
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 200ms ease-in-out;
+
+    a {
+        pointer-events: none;
+        user-select: none;
+    }
+}
+
+.sidebar .link.active {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar .link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.icon {
+    filter: invert(1.0);
+}
+
 .player {
     position: absolute;
     right: 10px;
@@ -144,7 +173,6 @@ body {
 
 .player .play {
     opacity: 0.8;
-    filter: invert(1.0);
     height: 1em;
     cursor: pointer;
 
@@ -171,6 +199,22 @@ body {
     border-radius: 3px;
 }
 
+.content {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    overflow: hidden;
+    flex-direction: row;
+}
+
+.page {
+    overflow-y: auto;
+    width: 100%;
+    height: 100%;
+    scrollbar-color: rgba(255, 255, 255, 0.5) rgba(0, 0, 0, 0);
+    scrollbar-width: thin;
+}
+
 #lyrics p {
     white-space: pre-wrap;
     text-align: center;
@@ -178,24 +222,52 @@ body {
     text-shadow: 0 0 4px black;
 }
 
-a {
-    color: white;
-    text-decoration: none;
+#about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
-.sidebar .link {
-    text-transform: uppercase;
-    font-weight: bold;
-    width: 100%;
+#about h1 {
+    margin: 20px;
+}
+
+#about .pfp {
+    width: 200px;
+    margin-top: 50px;
+    border-radius: 100%;
+    border: solid 8px rgba(255, 255, 255, 0.2);
+}
+
+#about .socials {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    font-size: 1.2rem;
-    cursor: pointer;
+    gap: 15px;
 }
 
-.sidebar .link:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+#about .icon {
+    height: 2em;
+}
+
+#about p {
+    text-align: center;
+    width: 50%;
+
+    .break {
+        display: block;
+        margin-top: 0.7em;
+    }
+
+    a {
+        text-decoration: underline;
+    }
+}
+
+#contact, #secrets {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
 }

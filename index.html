@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="index.css">
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"></script>
 </head>
 <body>
     <div class="warning">
@@ -35,17 +36,17 @@
     <div class="darken"></div>
     <div class="main row">
         <div class="sidebar">
-            <div class="link batman" onclick="setPage('lyrics')">
-                <a href="#">Takedown</a>
+            <div class="link batman active" onclick="setPage('lyrics')">
+                <a href="#lyrics">Takedown</a>
             </div>
             <div class="link" onclick="setPage('about')">
-                <a href="#">About me</a>
+                <a href="#about">About me</a>
             </div>
             <div class="link" onclick="setPage('contact')">
-                <a href="#">Contact me</a>
+                <a href="#contact">Contact me</a>
             </div>
             <div class="link" onclick="setPage('secrets')">
-                <a href="#">Secrets</a>
+                <a href="#secrets">Secrets</a>
             </div>
         </div>
         <div class="main column">
@@ -55,7 +56,7 @@
                 </div>
                 <div class="player">
                     <div class="play">
-                        <img src="static/play.png" />
+                        <img class="icon" src="static/play.png" />
                     </div>
                     <div class="progress">
                         <div class="progressbar"></div>
@@ -153,6 +154,33 @@ Woah-oh, da-da-da, down (Watch me do it, yeah)
                     <p>
 Take it down
                     </p>
+                </div>
+                <div class="page" id="about">
+                    <img src="static/pfp.png" class="pfp" />
+                    <h1>rumifan39</h1>
+                    <div class="socials">
+                        <a href="#" class="mywebsite">
+                            <img src="static/web.png" class="icon" />
+                        </a>
+                        <a href="https://bsky.app/profile/rumifan.bsky.social" target="_blank">
+                            <img src="static/bsky.svg" class="icon" />
+                        </a>
+                    </div>
+                    <p>
+                        Hi! I'm <b>rumifan39</b>! I'm the <b>number 1</b> <span class="batman">HUNTR/X</span> fan there is !!
+                        <span class="break"></span>
+                        And also, I love Rumi, she's so pretty, she's so me, she's my whole life, and you can't convince me otherwise.
+                        <span class="break"></span>
+                        In life, I like <b>KPop</b> (<span class="batman">HUNTR/X</span> 😍), <b>shitposting</b> on social networks and <b>web-design</b>.
+                        <span class="break"></span>
+                        By the way, if you find any issue with the website, or if you wanna say that you love me, you can <a href="#" onclick="setPage('contact')"><b>contact me</b></a> and I'll make sure to read it!
+                    </p>
+                </div>
+                <div class="page" id="contact">
+                    <h1>Nothing to see here, bitch</h1>
+                </div>
+                <div class="page" id="secrets">
+                    <h1>You don't have the admin cookies, so I'm not letting you in.</h1>
                 </div>
             </div>
         </div>

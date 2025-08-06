@@ -42,7 +42,47 @@ $(".play").on("click", function() {
     currstep = 0;
 });
 
+let activePage = "lyrics";
+let scrolling = false;
 function setPage(pageId) {
-    $(".page").hide();
-    $(`#${pageId}`).show()
+    if (activePage != pageId) {
+        $(".content").animate({
+            scrollTop: $(`#${pageId}`).offset().top + $(".content").scrollTop() - $(".content").offset().top
+        }, 1200, 'easeInOutCubic', function() {
+            scrolling = false;
+        });
+        activePage = pageId;
+        $(".link").removeClass("active");
+        $(`.link a[href='#${pageId}']`).parent().addClass("active");
+    }
 }
+
+$(".mywebsite").attr("href", window.location.origin);
+
+scrollTops = {}
+$(".page").each(function(_, e) {
+    let elem = $(e);
+    scrollTops[elem.attr("id")] = 0;
+})
+
+let updating = false;
+$(".page").on("wheel", function (e){
+    if (!updating) {
+        updating = true;
+        let elem = $($(".link.active a").attr("href"));
+        if (elem.scrollTop() != scrollTops[elem.attr("id")]) {
+            scrollTops[elem.attr("id")] = elem.scrollTop();
+        } else if (!scrolling) {
+            let pages = Object.keys(scrollTops);
+            let pageIdx = pages.indexOf(elem.attr("id"));
+            if (e.originalEvent.deltaY > 0 && pageIdx + 1 < pages.length && Math.abs(Math.floor(elem.scrollTop() + elem.outerHeight() - elem.prop("scrollHeight"))) < 2) {
+                setPage(pages[pageIdx + 1]);
+                scrolling = true;
+            } else if (e.originalEvent.deltaY < 0 && pageIdx > 0 && elem.scrollTop() === 0) {
+                setPage(pages[pageIdx - 1]);
+                scrolling = true;
+            }
+        }
+        updating = false;
+    }
+});
