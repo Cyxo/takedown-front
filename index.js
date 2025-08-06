@@ -48,7 +48,7 @@ function setPage(pageId) {
     if (activePage != pageId) {
         $(".content").animate({
             scrollTop: $(`#${pageId}`).offset().top + $(".content").scrollTop() - $(".content").offset().top
-        }, 1200, 'easeInOutCubic', function() {
+        }, 1000, 'easeInOutCubic', function() {
             scrolling = false;
         });
         activePage = pageId;
@@ -58,6 +58,31 @@ function setPage(pageId) {
 }
 
 $(".mywebsite").attr("href", window.location.origin);
+
+function scrollPages(deltaY) {
+    let elem = $($(".link.active a").attr("href"));
+    if (elem.scrollTop() != scrollTops[elem.attr("id")]) {
+        scrollTops[elem.attr("id")] = elem.scrollTop();
+    } else if (!scrolling) {
+        let pages = Object.keys(scrollTops);
+        let pageIdx = pages.indexOf(elem.attr("id"));
+        let newPageIdx = pageIdx;
+        if (deltaY > 0 && pageIdx + 1 < pages.length && Math.abs(Math.floor(elem.scrollTop() + elem.outerHeight() - elem.prop("scrollHeight"))) < 2) {
+            newPageIdx = pageIdx + 1;
+            setPage(pages[newPageIdx]);
+            scrolling = true;
+        } else if (deltaY < 0 && pageIdx > 0 && elem.scrollTop() === 0) {
+            newPageIdx = pageIdx - 1;
+            setPage(pages[newPageIdx]);
+            scrolling = true;
+        }
+        if (newPageIdx != 0) {
+            $("html, body").css("overscroll-behavior", "none");
+        } else {
+            $("html, body").css("overscroll-behavior", "initial");
+        }
+    }
+}
 
 scrollTops = {}
 $(".page").each(function(_, e) {
@@ -69,20 +94,24 @@ let updating = false;
 $(".page").on("wheel", function (e){
     if (!updating) {
         updating = true;
-        let elem = $($(".link.active a").attr("href"));
-        if (elem.scrollTop() != scrollTops[elem.attr("id")]) {
-            scrollTops[elem.attr("id")] = elem.scrollTop();
-        } else if (!scrolling) {
-            let pages = Object.keys(scrollTops);
-            let pageIdx = pages.indexOf(elem.attr("id"));
-            if (e.originalEvent.deltaY > 0 && pageIdx + 1 < pages.length && Math.abs(Math.floor(elem.scrollTop() + elem.outerHeight() - elem.prop("scrollHeight"))) < 2) {
-                setPage(pages[pageIdx + 1]);
-                scrolling = true;
-            } else if (e.originalEvent.deltaY < 0 && pageIdx > 0 && elem.scrollTop() === 0) {
-                setPage(pages[pageIdx - 1]);
-                scrolling = true;
-            }
-        }
+        scrollPages(e.originalEvent.deltaY);
         updating = false;
+    }
+});
+
+let touch = null;
+$(".page").on("touchstart", function(e) {
+    if (!scrolling) {
+        touch = e.originalEvent.changedTouches[0].screenY;
+    }
+});
+$(".page").on("touchmove", function(e) {
+    if (!scrolling) {
+        let newTouch = e.originalEvent.changedTouches[0].screenY;
+        let deltaY = touch - newTouch;
+        if (Math.abs(deltaY) > 50) {
+            scrollPages(deltaY);
+            touch = null;
+        }
     }
 });
