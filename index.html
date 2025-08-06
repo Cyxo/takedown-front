@@ -16,7 +16,7 @@
     <div class="warning">
         <div class="popup">
             <div class="title">
-                <h1>Warning</h1>
+                <h1>Loud music warning</h1>
             </div>
             <div class="text">
                 Upon entering this website, you may hear such a banger song that you won't be able to stop moving.
@@ -25,26 +25,27 @@
                 (I swear it's great)
             </div>
             <div class="button">
-                <div class="batman" onclick="hidePopup()">OK</div>
+                <div class="batman">OK</div>
             </div>
         </div>
     </div>
+    <div class="background">
+        <video src="static/bg.mp4" autoplay muted loop></video>
+    </div>
+    <div class="darken"></div>
     <div class="main row">
-        <div class="background">
-
-        </div>
         <div class="sidebar">
-            <div class="link batman">
-                <a href="#" onclick="setPage('lyrics')">Takedown</a>
+            <div class="link batman" onclick="setPage('lyrics')">
+                <a href="#">Takedown</a>
             </div>
-            <div class="link">
-                <a href="#" onclick="setPage('about')">About me</a>
+            <div class="link" onclick="setPage('about')">
+                <a href="#">About me</a>
             </div>
-            <div class="link">
-                <a href="#" onclick="setPage('contact')">Contact me</a>
+            <div class="link" onclick="setPage('contact')">
+                <a href="#">Contact me</a>
             </div>
-            <div class="link">
-                <a href="#" onclick="setPage('secrets')">Secrets</a>
+            <div class="link" onclick="setPage('secrets')">
+                <a href="#">Secrets</a>
             </div>
         </div>
         <div class="main column">

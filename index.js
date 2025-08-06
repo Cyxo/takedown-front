@@ -1,4 +1,4 @@
-var audio = new Audio('static/takedown.m4a');
+var audio = new Audio('https://files.catbox.moe/autun1.m4a');
 audio.preload = "auto";
 audio.loop = true;
 audio.load();
@@ -8,24 +8,28 @@ $(audio).on("timeupdate", function() {
     $(".progressbar").css("width", `${progress}%`);
 });
 
-$(".popup .button").on("click", function() {
-    $(".warning").hide();
-    audio.play();
+$(audio).on("canplaythrough", function() {
+    $(".popup .button").on("click", function() {
+        $(".warning").hide();
+        audio.play();
 
-    $(".player").css("height", `${$('.titlebar').outerHeight()}px`);
-    $(".play img").attr("src", "static/pause.png");
+        $(".player").css("height", `${$('.titlebar').outerHeight()}px`);
+        $(".play img").attr("src", "static/pause.png");
+    });
 });
 
 let currstep = 0;
 let steps = [[-30, 30], [0, 60], [30, 30], [0, 0]];
-$(".play").on("mouseenter", function() {
+function trolling() {
     if (!audio.paused && currstep < steps.length) {
         let step = steps[currstep];
         $(".play").css("margin-top", `${step[0]}px`);
         $(".play").css("margin-right", `${step[1]}px`);
         currstep += 1;
     }
-});
+}
+$(".play").on("mouseenter", trolling);
+$(".play").on("touchstart", trolling);
 
 $(".play").on("click", function() {
     if (audio.paused) {
