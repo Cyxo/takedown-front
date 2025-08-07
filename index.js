@@ -8,6 +8,7 @@ $(audio).on("timeupdate", function() {
     $(".progressbar").css("width", `${progress}%`);
 });
 
+// $(".warning").hide();
 $(audio).on("canplaythrough", function() {
     $(".popup .button").on("click", function() {
         $(".warning").hide();
@@ -23,8 +24,7 @@ let steps = [[-30, 30], [0, 60], [30, 30], [0, 0]];
 function trolling() {
     if (!audio.paused && currstep < steps.length) {
         let step = steps[currstep];
-        $(".play").css("margin-top", `${step[0]}px`);
-        $(".play").css("margin-right", `${step[1]}px`);
+        $(".play").css("margin", `${step[0]}px ${step[1]}px 0 0`);
         currstep += 1;
     }
 }
@@ -115,3 +115,30 @@ $(".page").on("touchmove", function(e) {
         }
     }
 });
+
+function updateForms() {
+    let id = $("#reasons").val();
+    $(".forms > div").hide();
+    $(`#${id}`).show();
+    $(".content").scrollTop($(`#contact`).offset().top + $(".content").scrollTop() - $(".content").offset().top);
+}
+
+$("#reasons").selectmenu();
+$("#reasons").on("selectmenuchange", updateForms);
+
+function submitForm(e) {
+    e.preventDefault();
+    let j = {
+        url: $("[name=url]").val()
+    }
+    fetch(
+        $("#report").attr("action"),
+        {
+            method: $("#report").attr("method")
+        }
+    ).then(function (r) {
+        r.text().then(function (v) {
+            console.log(v);
+        })
+    })
+}

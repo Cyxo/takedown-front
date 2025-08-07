@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Delius&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="index.css">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 
@@ -180,7 +181,33 @@ Take it down
                     </p>
                 </div>
                 <div class="page" id="contact">
-                    <h1>Nothing to see here, bitch</h1>
+                    <h1>What do you want to contact me for?</h1>
+                    <div>
+                        <select id="reasons">
+                            <option disabled="disabled" selected="selected">Please select...</option>
+                            <option value="love">Say you love me</option>
+                            <option value="bug">Report a bug</option>
+                            <option value="meet">Meet me IRL</option>
+                        </select>
+                    </div>
+                    <div class="forms">
+                        <div style="display: none" id="love">
+                            <h2>Aw, that's sweet, thank you! Sadly, I've closed this form because my mailbox was getting flooded with people showing me their love 💔</h2>
+                        </div>
+                        <div style="display: none" id="bug">
+                            <form id="report" action="http://api.takedown.cyxo.re/report" method="POST" onsubmit="submitForm(event)">
+                                <label for="name">Your sweet name~</label>
+                                <input type="text" name="name">
+                                <label for="url">URL you want to report</label>
+                                <input type="text" name="url">
+                                <input type="submit" value="" style="display: none;">
+                                <div class="button batman" onclick="submitForm(event)">Send</div>
+                            </form>
+                        </div>
+                        <div style="display: none" id="meet">
+                            <h2>Why the fuck would I want to meet your greasy ass IRL??</h2>
+                        </div>
+                    </div>
                 </div>
                 <div class="page" id="secrets">
                     <h1>You don't have the admin cookies, so I'm not letting you in.</h1>
