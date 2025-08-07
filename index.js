@@ -134,7 +134,11 @@ function submitForm(e) {
     fetch(
         $("#report").attr("action"),
         {
-            method: $("#report").attr("method")
+            method: $("#report").attr("method"),
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(j)
         }
     ).then(function (r) {
         r.text().then(function (v) {
