@@ -141,8 +141,8 @@ function submitForm(e) {
             body: JSON.stringify(j)
         }
     ).then(function (r) {
-        r.text().then(function (v) {
-            $("#reportresp").text(v);
+        r.json().then(function (v) {
+            $("#reportresp").text(v.message);
         })
     })
 }
