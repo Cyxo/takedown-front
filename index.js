@@ -50,6 +50,9 @@ function setPage(pageId) {
             scrollTop: $(`#${pageId}`).offset().top + $(".content").scrollTop() - $(".content").offset().top
         }, 1000, 'easeInOutCubic', function() {
             scrolling = false;
+            if (activePage == "secrets") {
+                fetchSecrets();
+            }
         });
         activePage = pageId;
         $(".link").removeClass("active");
@@ -116,33 +119,66 @@ $(".page").on("touchmove", function(e) {
     }
 });
 
+function fixHeight() {
+    $(".content").scrollTop($(`#${activePage}`).offset().top + $(".content").scrollTop() - $(".content").offset().top);
+}
+
 function updateForms() {
     let id = $("#reasons").val();
     $(".forms > div").hide();
     $(`#${id}`).show();
-    $(".content").scrollTop($(`#contact`).offset().top + $(".content").scrollTop() - $(".content").offset().top);
+    fixHeight();
 }
 
 $("#reasons").selectmenu();
 $("#reasons").on("selectmenuchange", updateForms);
 
+let loading = false;
 function submitForm(e) {
     e.preventDefault();
-    let j = {
-        url: $("[name=url]").val()
-    }
-    fetch(
-        $("#report").attr("action"),
-        {
-            method: $("#report").attr("method"),
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(j)
+    if (!loading) {
+        loading = true;
+        $("#reportresp").html('<img src="static/loading.gif" class="icon" width="32" />');
+        fixHeight();
+        let j = {
+            url: $("[name=url]").val()
         }
+        fetch(
+            $("#report").attr("action"),
+            {
+                method: $("#report").attr("method"),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(j)
+            }
+        ).then(function (r) {
+            loading = false;
+            r.json().then(function (v) {
+                $("#reportresp").text(v.message);
+            })
+        }, function () {
+            loading = false;
+            $("#reportresp").text("Error. Please contact an administrator.");
+        });
+    }
+}
+
+function fetchSecrets() {
+    $("#secretsresp").html('<img src="static/loading.gif" class="icon" width="64" />');
+    fixHeight();
+    fetch(
+        "https://api.takedown.cyxo.re/secrets"
     ).then(function (r) {
+        loading = false;
         r.json().then(function (v) {
-            $("#reportresp").text(v.message);
+            if (v.status) {
+                $("#secretsresp").text(`${v.message}. The session cookie associated with this request has been destroyed.`);
+            } else {
+                $("#secretsresp").text("You don't have the admin cookies, so I'm not letting you in.");
+            }
         })
-    })
+    }, function () {
+        $("#secretsresp").text("Error. Please contact an administrator.");
+    });
 }
