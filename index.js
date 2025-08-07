@@ -142,7 +142,7 @@ function submitForm(e) {
         }
     ).then(function (r) {
         r.text().then(function (v) {
-            console.log(v);
+            $("#reportresp").text(v);
         })
     })
 }
